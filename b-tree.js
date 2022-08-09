@@ -19,7 +19,7 @@ class BTree {
             this.root = new TNode(element);
         }
         else {
-            insertNode(this.root, new TNode(element))
+            this.insertNode(this.root, new TNode(element));
         }
     }
 
@@ -43,3 +43,8 @@ class BTree {
         }
     }
 }
+
+var bTree = new BTree();
+bTree.insert(5);
+bTree.insert(10);
+bTree.insert(3);
