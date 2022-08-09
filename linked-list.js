@@ -13,7 +13,6 @@ class LinkedList {
         this.size = 0;
     }
 
-
     add(element) {
 
         var current;
@@ -40,7 +39,7 @@ class LinkedList {
         current = this.head;
 
         if (index == 0) {
-            node.next = this.head
+            node.next = this.head;
             this.head = node;
         }
         else {
