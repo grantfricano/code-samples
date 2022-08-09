@@ -24,13 +24,13 @@ class BTree {
     }
 
     insertNode(node, newNode) {
-
+        
         if (newNode.element < node.element){
             if (node.left == null){
                 node.left = newNode;
             }
             else {
-                this.insertNode(node.left, newNode)
+                this.insertNode(node.left, newNode);
             }
         }
         else {
@@ -38,7 +38,7 @@ class BTree {
                 node.right = newNode;
             }
             else {
-                this.insertNode(node.right, newNode)
+                this.insertNode(node.right, newNode);
             }
         }
     }
