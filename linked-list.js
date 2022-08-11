@@ -16,17 +16,17 @@ class LinkedList {
     add(element) {
 
         var current;
+        var node = new Node(element);
 
         if (this.head == null) {
-            this.head = new Node(element);
+            this.head = node;
         }
         else {
             current = this.head;
             while(current.next) {
                 current = current.next;
             }
-
-            current.next = new Node(element);
+            current.next = node;
         }
         this.size++;
     }
@@ -54,14 +54,20 @@ class LinkedList {
         this.size++;
     }
 
+    print() {
+        var output = this.head;
+        while(output){
+            console.log('Output: ' + output.element);
+            output = output.next;
+        }
+    }
+
 };
 
 var list = new LinkedList;
 list.add(1);
-console.log(list);
 list.add(2);
-console.log(list);
 list.add(3);
-console.log(list);
+list.add(4);
 list.insertAt(0,10);
-console.log(list);
+list.print();
