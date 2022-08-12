@@ -9,7 +9,6 @@ function timeConversion(s) {
         }
     }
     else {
-
         if (timeArr[0] != "12"){
             timeArr[0] = parseInt(timeArr[0]) + 12;
         }
