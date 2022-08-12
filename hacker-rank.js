@@ -52,7 +52,7 @@ function lonelyinteger(a) {
             map.set(a[i], 1);
         }
         else {
-            map.set(a[i], map.get(a[i]) + 1)
+            map.set(a[i], map.get(a[i]) + 1);
         }
     }
     
