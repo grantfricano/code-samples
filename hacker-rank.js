@@ -14,7 +14,7 @@ function timeConversion(s) {
         }
     }
     var newString = timeArr[0] + ':' + timeArr[1] + ':' + timeArr[2].substring(0, 2);
-    return newString
+    return newString;
 }
 
 // takes an unsorted array of odd amount of numbers... sorts it... then returns median value 
