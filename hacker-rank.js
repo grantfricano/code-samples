@@ -1,3 +1,5 @@
+
+// sample input 07:05:45PM
 function timeConversion(s) {
     // Write your code here
     var timeArr = s.split(':');
@@ -16,6 +18,7 @@ function timeConversion(s) {
     return newString
 }
 
+// takes an unsorted array of odd amount of numbers... sorts it... then returns median value 
 function plusMinus(arr) {
     // Write your code here
     let posNums = 0;
