@@ -62,3 +62,28 @@ function lonelyinteger(a) {
         }
     }
 }
+
+function diagonalDifference(arr) {
+    // Write your code here
+    let primary = 0;
+    let secondary = 0;
+    
+    for (let i = 0; i < arr.length; i++){
+        for (let j = 0; j< arr.length; j++){
+            if (i == j){
+                primary += parseInt(arr[i][j]);
+                console.log('primary: ' + arr[i][j]);
+            }
+        }
+    }
+    
+    for (let i = 0; i < arr.length; i++){
+        for (let j = 0; j < arr.length; j++){
+            if (i + j == arr.length -1){ 
+                secondary += parseInt(arr[i][j]);
+                console.log(arr[i][j]);
+            }
+        }
+    }
+    return Math.abs(primary - secondary);
+}
