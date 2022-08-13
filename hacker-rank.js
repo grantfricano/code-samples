@@ -72,7 +72,6 @@ function diagonalDifference(arr) {
         for (let j = 0; j< arr.length; j++){
             if (i == j){
                 primary += parseInt(arr[i][j]);
-                console.log('primary: ' + arr[i][j]);
             }
         }
     }
@@ -81,7 +80,6 @@ function diagonalDifference(arr) {
         for (let j = 0; j < arr.length; j++){
             if (i + j == arr.length -1){ 
                 secondary += parseInt(arr[i][j]);
-                console.log(arr[i][j]);
             }
         }
     }
