@@ -88,3 +88,34 @@ function flippingMatrix(mat) {
 }
 
 
+function diagonalDifference(arr) {
+    // Write your code here
+    let primary = 0;
+    let secondary = 0;
+    
+    for (let i = 0; i < arr.length; i++){
+        for (let j = 0; j < arr.length; j++){
+            if (i == j){
+                primary += parseInt(arr[i][j]);
+            }
+        }
+    }
+    
+    for (let i = 0; i < arr.length; i++){
+        for (let j = 0; j < arr.length; j++){
+            if (i + j == arr.length - 1){ 
+                secondary += parseInt(arr[i][j]);
+            }
+        }
+    }
+    return Math.abs(primary - secondary);
+}
+
+function countingSort(arr) {
+    // Write your code here
+    let countArr = Array(100).fill(0);
+    for (let i = 0; i < arr.length; i++){
+        countArr[arr[i]] = countArr[arr[i]] + 1;
+    }
+    return countArr;
+}
