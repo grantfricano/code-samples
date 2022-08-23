@@ -62,3 +62,29 @@ function lonelyinteger(a) {
         }
     }
 }
+
+function flippingMatrix(mat) {
+    let R = mat.length;
+    let C = mat.length;
+    let sum = 0;
+   
+        for (let i = 0; i < R / 2; i++) {
+            for (let j = 0; j < C / 2; j++) {
+                let r1 = i;
+                let r2 = R - i - 1;
+                let c1 = j;
+                let c2 = C - j - 1;
+   
+                // We can replace current cell [i, j]
+                // with 4 cells without changing affecting
+                // other elements.
+                sum += Math.max(Math.max(mat[r1][c1], mat[r1][c2]),
+                        Math.max(mat[r2][c1], mat[r2][c2]));
+            }
+        }
+   
+        return sum;
+
+}
+
+
