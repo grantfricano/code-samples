@@ -1,3 +1,4 @@
+
 class Calculator {
     
     add(x, y) {
@@ -39,9 +40,9 @@ function printHash() {
 printHash();
 
 function isEvenOrOdd(n) {
-        if (n % 2 == 0)
-            return 'even';
-        return 'odd';
+    if (n % 2 == 0)
+        return 'even';
+    return 'odd';
 }
 
 console.log(isEvenOrOdd(3));
@@ -166,8 +167,6 @@ countryList.forEach(element => {
 });
 
 
-
-
 function doesKeyExist(key) {
     const person = {
         id: 1,
@@ -210,8 +209,6 @@ userObj["city"] = 'DC';
 console.log(userObj)
 
 
-
-
 function getFileExtension(filename) {
     let fileArray = filename.split('.');
     return fileArray[1];
@@ -223,8 +220,11 @@ console.log(getFileExtension('myfile.doc'));
 function sayHello(){ 
     setTimeout(() => {
         console.log("Hello");
-      }, "5000")
+      }, 5000)
 }
 
-sayHello();
-setInterval(sayHello, 5000);
+function helloWorld() {
+    console.log('hello world');
+}
+//sayHello();
+//setInterval(sayHello, 5000);
