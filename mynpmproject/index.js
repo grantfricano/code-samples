@@ -1,4 +1,4 @@
-import DisplayName, { DisplayAge } from './person.mjs';
+import DisplayName, { DisplayAge, Person } from './person.mjs';
 import {readFile, writeFile, appendFile, unlink } from 'fs';
 import http from 'node:http';
 
@@ -17,6 +17,8 @@ import http from 'node:http';
 // readFile('./data.txt', 'utf-8', (error, data) => {
 //     console.log('the data is ' + data);
 // })
+let person = new Person();
+
 
 http.createServer( function(request, response){
 

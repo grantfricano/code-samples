@@ -10,3 +10,10 @@ export function DisplayAge(age) {
 function GetAge(age) {
     return 'you are ' + age + ' years old';
 }
+
+export class Person {
+    constructor(){
+        console.log('test');
+    }
+}
+
