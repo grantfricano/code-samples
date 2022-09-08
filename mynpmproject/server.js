@@ -26,12 +26,33 @@ app.get('/users/:id', (req, res) => {
     }
 })
 
-app.get('/users/delete/:id', (req, res) => {
+app.delete('/users/delete/:id', (req, res) => {
     let id = req.params.id;
 
     for (let i = 0; i < users.length; i++) {
         if (users[i].name == id){
             users.splice(i, 1);
+        }
+    }
+    res.json(users);
+})
+
+app.put('/users/add-attribute/:id', (req, res) => {
+    let id = req.params.id;
+
+    for (let i = 0; i < users.length; i++) {
+        users[i][id] = '';
+    }
+    res.json(users);
+})
+
+app.put('/users/update-location/:id/:location', (req, res) => {
+    let id = req.params.id;
+    let location = req.params.location;
+
+    for (let i = 0; i < users.length; i++) {
+        if (users[i].name == id){
+            users[i].location = location;
         }
     }
     res.json(users);
