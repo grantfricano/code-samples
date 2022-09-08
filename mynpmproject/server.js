@@ -13,19 +13,28 @@ app.get('/users', (req, res) => {
 app.post('/users', (req, res) => {
     users.push(req.body);
     console.log(users);
-
     res.json(users);
 })
 
 app.get('/users/:id', (req, res) => {
     let id = req.params.id;
-    console.log('id: ' + id);
 
     for (let i = 0; i < users.length; i++) {
         if (users[i].name == id){
             res.json(users[i]);
         }
     }
+})
+
+app.get('/users/delete/:id', (req, res) => {
+    let id = req.params.id;
+
+    for (let i = 0; i < users.length; i++) {
+        if (users[i].name == id){
+            users.splice(i, 1);
+        }
+    }
+    res.json(users);
 })
 
 app.listen(3001, () => {
