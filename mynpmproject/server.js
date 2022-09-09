@@ -6,57 +6,127 @@ app.use(json());
 app.use(cors());
 
 let users = [];
-app.get('/users', (req, res) => {
-    res.json(users);
+let companies = [];
+
+ app.get('/companies/', (req, res) => {
+    res.json(companies);
 })
 
-app.post('/users', (req, res) => {
-    users.push(req.body);
-    console.log(users);
-    res.json(users);
+app.post('/companies', (req, res) => {
+    companies.push(req.body);
+    res.json(companies);
 })
 
-app.get('/users/:id', (req, res) => {
-    let id = req.params.id;
+app.delete('/companies/:companyId', (req, res) => {
+    let companyId = req.params.companyId
 
-    for (let i = 0; i < users.length; i++) {
-        if (users[i].name == id){
-            res.json(users[i]);
+    const companyIndex = companies.findIndex( (company)=>{
+        return company.companyId == companyId;
+    })
+
+    if (companyIndex >= 0) {
+        companies.splice(companyIndex, 1);
+        res.json(companies);
+    }
+    else {
+        res.json({error: 'company is undefined'});
+    }
+})
+
+app.get('/companies/:companyId', (req, res) => {
+    let companyId = req.params.companyId
+
+    const companyIndex = companies.findIndex( (company)=>{
+        return company.companyId == companyId;
+    })
+
+    if (companyIndex >= 0) {
+        res.json(companies[companyIndex]);
+    }
+    else {
+        res.json({error: 'company is undefined'});
+    }
+})
+
+app.get('/companies/:companyId/users', (req, res) => {
+    let companyId = req.params.companyId
+    let usersInCompany = [];
+    
+    users.forEach(user => {
+        if (user.companyId == companyId) { 
+            usersInCompany.push(user);
         }
-    }
+    });
+    res.json(usersInCompany);
+
 })
 
-app.delete('/users/delete/:id', (req, res) => {
-    let id = req.params.id;
+app.post('/companies/:companyId/users', (req, res) => {
+    const newBody = {
+        companyId: req.params.companyId,
+        ...req.body
+    }      
 
-    for (let i = 0; i < users.length; i++) {
-        if (users[i].name == id){
-            users.splice(i, 1);
-        }
-    }
+    users.push(newBody);
     res.json(users);
 })
 
-app.put('/users/add-attribute/:id', (req, res) => {
-    let id = req.params.id;
+app.get('/companies/:companyId/users/:userId', (req, res) => {
+    let userId = req.params.userId;
+    let companyId = req.params.companyId;
 
-    for (let i = 0; i < users.length; i++) {
-        users[i][id] = '';
+    const userIndex = users.findIndex( (user)=>{
+        return user.id == userId && user.companyId == companyId;
+    })
+
+    if (userIndex >= 0) {
+        res.json(users[userIndex]);
     }
-    res.json(users);
+    else {
+        res.json({error: 'user is undefined'});
+    }
+
 })
 
-app.put('/users/update-location/:id/:location', (req, res) => {
+app.delete('/companies/:companyId/users/:userId', (req, res) => {
     let id = req.params.id;
-    let location = req.params.location;
 
-    for (let i = 0; i < users.length; i++) {
-        if (users[i].name == id){
-            users[i].location = location;
-        }
+    const userIndex = users.findIndex( (user)=>{
+        return user.name == id;
+    })
+
+    if (userIndex > 0) {
+        users.splice(userIndex, 1);
+        res.json(users);
     }
-    res.json(users);
+    else {
+        res.json({error: 'user is undefined'});
+    }
+
 })
+
+app.put('/companies/:companyId/users/:userId', (req, res) => {
+    let body = req.body;
+    let userId = req.params.userId;
+    let companyId = req.params.companyId;
+
+    const newBody = {
+        companyId: req.params.companyId,
+        ...req.body
+    }   
+
+    let userIndex = users.findIndex((user)=>user.id == userId && user.companyId == companyId);
+    
+    if (userIndex >= 0){ 
+        users[userIndex] = newBody; 
+        res.json(users);
+    }
+    else {
+        res.json({error: 'user is undefined'});
+    }
+
+})
+
 
 app.listen(3001, () => {
     console.log('listening on 3001');
