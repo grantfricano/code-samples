@@ -36,7 +36,7 @@ app.delete('/companies/:companyId', (req, res) => {
 app.get('/companies/:companyId', (req, res) => {
     let companyId = req.params.companyId
 
-    const companyIndex = companies.findIndex( (company)=>{
+    const companyIndex = companies.findIndex((company)=>{
         return company.companyId == companyId;
     })
 
@@ -89,20 +89,18 @@ app.get('/companies/:companyId/users/:userId', (req, res) => {
 })
 
 app.delete('/companies/:companyId/users/:userId', (req, res) => {
-    let id = req.params.id;
+    let userId = req.params.userId;
+    let companyId = req.params.companyId;
 
-    const userIndex = users.findIndex( (user)=>{
-        return user.name == id;
-    })
+    const userIndex = users.findIndex( (user)=>user.id == userId && user.companyId == companyId);
 
-    if (userIndex > 0) {
-        users.splice(userIndex, 1);
+    if (userIndex >= 0) {
+        users[userIndex].companyId = '';
         res.json(users);
     }
     else {
         res.json({error: 'user is undefined'});
     }
-
 })
 
 app.put('/companies/:companyId/users/:userId', (req, res) => {
@@ -124,10 +122,14 @@ app.put('/companies/:companyId/users/:userId', (req, res) => {
     else {
         res.json({error: 'user is undefined'});
     }
-
 })
 
 
 app.listen(3001, () => {
     console.log('listening on 3001');
 })
+
+
+
+// questions 
+// subtle differences in syntax that i see
