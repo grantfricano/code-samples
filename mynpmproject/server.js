@@ -20,12 +20,17 @@ app.post('/companies', (req, res) => {
 app.delete('/companies/:companyId', (req, res) => {
     let companyId = req.params.companyId
 
-    const companyIndex = companies.findIndex( (company)=>{
-        return company.companyId == companyId;
-    })
+    const companyIndex = companies.findIndex( (company)=>company.companyId == companyId);
 
+    // if the company is found this will delete the company 
+    // and any users who were associated with it
     if (companyIndex >= 0) {
         companies.splice(companyIndex, 1);
+        users.forEach(user => {
+            if (user.companyId == companyId) {
+                users.splice(users.indexOf(user));
+            }
+        });
         res.json(companies);
     }
     else {
@@ -36,9 +41,7 @@ app.delete('/companies/:companyId', (req, res) => {
 app.get('/companies/:companyId', (req, res) => {
     let companyId = req.params.companyId
 
-    const companyIndex = companies.findIndex((company)=>{
-        return company.companyId == companyId;
-    })
+    const companyIndex = companies.findIndex((company)=>company.companyId == companyId);
 
     if (companyIndex >= 0) {
         res.json(companies[companyIndex]);
@@ -75,9 +78,7 @@ app.get('/companies/:companyId/users/:userId', (req, res) => {
     let userId = req.params.userId;
     let companyId = req.params.companyId;
 
-    const userIndex = users.findIndex( (user)=>{
-        return user.id == userId && user.companyId == companyId;
-    })
+    const userIndex = users.findIndex((user)=>user.id == userId && user.companyId == companyId);
 
     if (userIndex >= 0) {
         res.json(users[userIndex]);
@@ -92,11 +93,10 @@ app.delete('/companies/:companyId/users/:userId', (req, res) => {
     let userId = req.params.userId;
     let companyId = req.params.companyId;
 
-    const userIndex = users.findIndex( (user)=>user.id == userId && user.companyId == companyId);
+    const userIndex = users.findIndex((user)=>user.id == userId && user.companyId == companyId);
 
     if (userIndex >= 0) {
         users.splice(userIndex, 1);
-        //users[userIndex].companyId = '';
         res.json(users);
     }
     else {
@@ -105,7 +105,7 @@ app.delete('/companies/:companyId/users/:userId', (req, res) => {
 })
 
 app.put('/companies/:companyId/users/:userId', (req, res) => {
-    let body = req.body;
+    
     let userId = req.params.userId;
     let companyId = req.params.companyId;
 
@@ -125,11 +125,9 @@ app.put('/companies/:companyId/users/:userId', (req, res) => {
     }
 })
 
-
 app.listen(3001, () => {
     console.log('listening on 3001');
 })
-
 
 
 // questions 
