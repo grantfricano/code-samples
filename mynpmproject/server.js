@@ -95,7 +95,8 @@ app.delete('/companies/:companyId/users/:userId', (req, res) => {
     const userIndex = users.findIndex( (user)=>user.id == userId && user.companyId == companyId);
 
     if (userIndex >= 0) {
-        users[userIndex].companyId = '';
+        users.splice(userIndex, 1);
+        //users[userIndex].companyId = '';
         res.json(users);
     }
     else {
