@@ -1,5 +1,4 @@
 import net from 'node:net';
-import { EventEmitter } from 'node:stream';
 
 const server = net.createServer((socket)=>{
     console.log('server connected');

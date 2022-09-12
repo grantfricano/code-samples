@@ -13,5 +13,5 @@ client.on('error', (error) => {
     console.log('client error is ' + error);
 })
 
-//client.write(8);
+client.write('data from the client' + Math.random());
 
