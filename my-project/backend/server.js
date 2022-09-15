@@ -8,7 +8,7 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-let updateUserId = (req, res, next) => {
+let updateUserIdMiddleware = (req, res, next) => {
 
     let user = req.body;
     user.id = Math.floor(Math.random() * 100);
@@ -67,7 +67,7 @@ app.get('/users', ValidateJWTTokenMiddleware, (req, res) => {
     res.json(users);
 })
 
-app.post('/users', ValidateJWTTokenMiddleware, updateUserId, (req, res) => {
+app.post('/users', ValidateJWTTokenMiddleware, updateUserIdMiddleware, (req, res) => {
     users.push(req.body);
     res.json(users);
 })
