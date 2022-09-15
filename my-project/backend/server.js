@@ -1,6 +1,8 @@
 const express = require('express');
 const cors = require('cors');
-const { application } = require('express');
+const dotenv = require('dotenv');
+const jwt = require('jsonwebtoken');
+dotenv.config();
 
 const app = express();
 app.use(cors());
@@ -33,12 +35,50 @@ app.use(customLoggerMiddleware)
 
 let users = [];
 
-app.get('/users', (req, res) => {
+let ValidateJWTTokenMiddleware = (req, res, next) => {
+    let token = req.headers.authorization;
+    if(token) {
+        try{
+            jwt.verify(token, process.env.JWT_SECRET_KEY)
+            next();
+        } catch(e){
+            res.status(403).send('Forbidden');
+        }
+    }
+    else {
+        res.status(401).send('Unauthorized');
+    }
+   
+}
+
+app.post('/token', (req, res) => {
+    if(req.body.username === 'admin' && req.body.password === 'admin@123') {
+        const payload = {
+            username: 'admin',
+            age: 35,
+            id: 123
+        }
+        const token = jwt.sign(payload, process.env.JWT_SECRET_KEY);
+        res.send({token: token});
+    }
+    else {
+        res.status(400).send('Invalid username or password.');
+    }
+})
+
+app.get('/users', ValidateJWTTokenMiddleware, (req, res) => {
     res.json(users);
 })
 
 app.post('/users', (req, res) => {
     users.push(req.body);
+    res.json(users);
+})
+
+app.put('/users', (req, res) => {
+    let updatedUser = req.body;
+    let userIndex = users.findIndex((user)=> user.id == updatedUser.id);
+    users[userIndex] = updatedUser;
     res.json(users);
 })
 
@@ -53,6 +93,6 @@ app.delete('/users/:id', (req, res) => {
     res.json(users);
 })
 
-app.listen(5000, (req, res) => {
-    console.log('Listening on port 5000');
+app.listen(process.env.PORT, (req, res) => {
+    console.log('Listening on ' + process.env.PORT);
 })
