@@ -2,6 +2,7 @@ const express = require('express');
 const cors = require('cors');
 const dotenv = require('dotenv');
 const jwt = require('jsonwebtoken');
+
 dotenv.config();
 
 const app = express();
@@ -28,7 +29,6 @@ let customLoggerMiddleware = (req, res, next) => {
     next();
 }
 
-app.use(updateUserId);
 app.use(customLoggerMiddleware);
 
 let users = [];
