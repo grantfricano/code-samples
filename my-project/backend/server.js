@@ -10,10 +10,8 @@ app.use(express.json());
 
 let updateUserId = (req, res, next) => {
 
-    if (req.url == '/users/' && req.method == 'POST') {
-        let user = req.body;
-        user.id = Math.floor(Math.random() * 100);
-    }
+    let user = req.body;
+    user.id = Math.floor(Math.random() * 100);
     next();
 }
 
@@ -38,7 +36,7 @@ let users = [];
 let ValidateJWTTokenMiddleware = (req, res, next) => {
     let token = req.headers.authorization;
     if(token) {
-        try{
+        try {
             jwt.verify(token, process.env.JWT_SECRET_KEY);
             next();
         } catch(e){
@@ -69,7 +67,7 @@ app.get('/users', ValidateJWTTokenMiddleware, (req, res) => {
     res.json(users);
 })
 
-app.post('/users', ValidateJWTTokenMiddleware, (req, res) => {
+app.post('/users', ValidateJWTTokenMiddleware, updateUserId, (req, res) => {
     users.push(req.body);
     res.json(users);
 })
