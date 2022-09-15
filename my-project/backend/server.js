@@ -31,7 +31,7 @@ let customLoggerMiddleware = (req, res, next) => {
 }
 
 app.use(updateUserId);
-app.use(customLoggerMiddleware)
+app.use(customLoggerMiddleware);
 
 let users = [];
 
@@ -39,7 +39,7 @@ let ValidateJWTTokenMiddleware = (req, res, next) => {
     let token = req.headers.authorization;
     if(token) {
         try{
-            jwt.verify(token, process.env.JWT_SECRET_KEY)
+            jwt.verify(token, process.env.JWT_SECRET_KEY);
             next();
         } catch(e){
             res.status(403).send('Forbidden');
@@ -48,7 +48,6 @@ let ValidateJWTTokenMiddleware = (req, res, next) => {
     else {
         res.status(401).send('Unauthorized');
     }
-   
 }
 
 app.post('/token', (req, res) => {
@@ -70,24 +69,24 @@ app.get('/users', ValidateJWTTokenMiddleware, (req, res) => {
     res.json(users);
 })
 
-app.post('/users', (req, res) => {
+app.post('/users', ValidateJWTTokenMiddleware, (req, res) => {
     users.push(req.body);
     res.json(users);
 })
 
-app.put('/users', (req, res) => {
+app.put('/users', ValidateJWTTokenMiddleware, (req, res) => {
     let updatedUser = req.body;
     let userIndex = users.findIndex((user)=> user.id == updatedUser.id);
     users[userIndex] = updatedUser;
     res.json(users);
 })
 
-app.get('/users/:id', (req, res) => {
+app.get('/users/:id', ValidateJWTTokenMiddleware, (req, res) => {
     let user = users.find((u) => u.id == req.params.id);
     res.json(user);
 })
 
-app.delete('/users/:id', (req, res) => {
+app.delete('/users/:id', ValidateJWTTokenMiddleware, (req, res) => {
     let userIndex = users.findIndex((u) => u.id == req.params.id);
     users.splice(userIndex, 1);
     res.json(users);
