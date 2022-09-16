@@ -144,6 +144,7 @@ function App() {
   return (
     <div className="App">
 
+      <div className='login-form'>
       <h1>Enter User Name and Password</h1>
       <label>User Name</label>
       <input type="text" placeholder="User Name" value={loginName} onChange={(event) => setLoginName(event.target.value)}></input>
@@ -152,36 +153,25 @@ function App() {
       <input type="password" placeholder="Password" value={password} onChange={(event) => setPassword(event.target.value)}></input>
       
       <button onClick={Login}>Login</button>
+      <br/><br/>
+      </div>
+      <br />
+      <br />
+      <br />
+
+    <div className='submission-container'>
+      <div className='create-user'>
+        <h1>Create User</h1>
+        <label>Name</label>
+        <input type="text" placeholder='Student Name' value={username} onChange={(event) => setUsername(event.target.value)}></input>
       
-      <br />
-      <br />
-      <br />
-
-      <h1>Create User</h1>
-      <label>Name</label>
-      <input type="text" placeholder='Student Name' value={username} onChange={(event) => setUsername(event.target.value)}></input>
-     
-      <label>Age</label>
-      <input type="number" placeholder='Student Age' value={age} onChange={(event) => setUserAge(event.target.value)}></input>
-
-      <button type='submit' onClick={CreateUser}>Save</button>
-      <button type="submit" onClick={UpdateUser}>Update</button>
-
-      <br />
-      <h1>Create Product</h1>
-      <label>Name</label>
-      <input type="text" placeholder='Product Name' value={productName} onChange={(event) => setProductName(event.target.value)}></input>
-     
-      <label>Number</label>
-      <input type="number" placeholder='Product Number' value={productNumber} onChange={(event) => setProductNumber(event.target.value)}></input>
-
-      <button type='submit' onClick={CreateProduct}>Save</button>
-      <button type="submit" onClick={UpdateProduct}>Update</button>
-    <div>
+        <label>Age</label>
+        <input type="number" placeholder='Student Age' value={age} onChange={(event) => setUserAge(event.target.value)}></input>
       
-    </div>
-    
-      <table border='1'>
+        <button type='submit' onClick={CreateUser}>Save</button>
+        <button type="submit" onClick={UpdateUser}>Update</button>
+        <br /><br />
+        <table border='1' className='display-table'>
         <tr>
           <th>Name</th>
           <th>Age</th>
@@ -198,8 +188,20 @@ function App() {
         }
       </table>
 
-      <br/>
-      <table border='1'>
+        <br />
+      </div>
+      <div className='create-product'>
+        <h1>Create Product</h1>
+        <label>Name</label>
+        <input type="text" placeholder='Product Name' value={productName} onChange={(event) => setProductName(event.target.value)}></input>
+      
+        <label>Number</label>
+        <input type="number" placeholder='Product Number' value={productNumber} onChange={(event) => setProductNumber(event.target.value)}></input>
+
+        <button type='submit' onClick={CreateProduct}>Save</button>
+        <button type="submit" onClick={UpdateProduct}>Update</button>
+        <br/><br />
+        <table border='1' className='display-table'>
         <tr>
           <th>Product</th>
           <th>Number</th>
@@ -215,8 +217,17 @@ function App() {
           ))
         }
       </table>
+      <br />
+      </div>
+    </div>  
+    
+    <br/>
+    <div>
 
-      
+
+      <br/><br/>
+    
+      </div>
     </div>
   );
 }
