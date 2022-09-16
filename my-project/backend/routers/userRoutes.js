@@ -20,7 +20,6 @@ userRoutes.post('/', updateUserIdMiddleware, (req, res) => {
 userRoutes.put('/', (req, res) => {
     let updatedUser = req.body;
     let userIndex = users.findIndex((user)=> user.id == updatedUser.id);
-    console.log(updatedUser.id);
     users[userIndex] = updatedUser;
     res.json(users);
 })
