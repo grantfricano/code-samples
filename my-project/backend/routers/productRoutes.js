@@ -4,7 +4,7 @@ const ValidateJWTTokenMiddleware = require('../middleWares/validateJWTTokenMiddl
 const productRoutes = express.Router();
 
 productRoutes.use(ValidateJWTTokenMiddleware);
-productRoutes.use(updateProductIdMiddleware);
+//productRoutes.use(updateProductIdMiddleware);
 
 let products = [];
 
@@ -12,20 +12,20 @@ productRoutes.get('/', (req, res) => {
     res.json(products);
 })
 
-productRoutes.post('/', (req, res) => {
+productRoutes.post('/', updateProductIdMiddleware,(req, res) => {
     products.push(req.body);
     res.json(products);
 })
 
 productRoutes.put('/', (req, res) => {
     let updatedProdct = req.body;
-    let productIndex = products.findIndex(product => product.id === updatedProdct.id);
+    let productIndex = products.findIndex(product => product.id == updatedProdct.id);
     products[productIndex] = updatedProdct;
     res.json(products);
 })
 
 productRoutes.get('/:id', (req, res) => {
-    let product = products.find(product => product.id === req.params.id);
+    let product = products.find(product => product.id == req.params.id);
     res.json(product);
 })
 

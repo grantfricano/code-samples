@@ -6,13 +6,13 @@ const userRoutes = express.Router();
 let users = [];
 
 userRoutes.use(ValidateJWTTokenMiddleware);
-userRoutes.use(updateUserIdMiddleware);
+//userRoutes.use(updateUserIdMiddleware);
 
 userRoutes.get('/', (req, res) => {
     res.json(users);
 })
 
-userRoutes.post('/', (req, res) => {
+userRoutes.post('/', updateUserIdMiddleware, (req, res) => {
     users.push(req.body);
     res.json(users);
 })
@@ -20,6 +20,7 @@ userRoutes.post('/', (req, res) => {
 userRoutes.put('/', (req, res) => {
     let updatedUser = req.body;
     let userIndex = users.findIndex((user)=> user.id == updatedUser.id);
+    console.log(updatedUser.id);
     users[userIndex] = updatedUser;
     res.json(users);
 })
